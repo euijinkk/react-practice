@@ -6,10 +6,19 @@ import Loading from "./Loading";
 // fetch('https://jsonplaceholder.typicode.com/todos/1')
 
 const getTodos = async () => {
-  const response = await fetch("https://jsonplaceholder.typicode.com/todos");
-  const data = response.json();
+  try {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/todos123"
+    );
 
-  return data;
+    if (!response.ok) throw new Error("fetch 실패");
+
+    const data = response.json();
+
+    return data;
+  } catch ({ message }) {
+    throw new Error(message);
+  }
 };
 
 function App() {
@@ -21,6 +30,8 @@ function App() {
       enabled: false,
     }
   );
+  console.log("data", data);
+  console.log("isError", isError);
 
   const handleClick = () => {
     refetch();

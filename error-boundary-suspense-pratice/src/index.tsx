@@ -5,7 +5,8 @@ import App from "./App";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Suspense } from "react";
 import Loading from "./Loading";
-import ErrorBoundary from "./ErrorBoundary";
+import { ErrorBoundary } from "react-error-boundary";
+import Error from "./Error";
 
 const queryClient = new QueryClient();
 
@@ -15,7 +16,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ErrorBoundary>
+      <ErrorBoundary FallbackComponent={Error}>
         <Suspense fallback={<Loading />}>
           <App />
         </Suspense>
